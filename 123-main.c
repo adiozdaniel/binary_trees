@@ -1,36 +1,46 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "binary_trees.h"
 
 /**
 * main - Entry point
 *
-* Return: Always 0 (Success)
+* Return: 0 on success, error code on failure
 */
 int main(void)
 {
-	/* Create an AVL tree */
-	avl_t *root = NULL;
+	avl_t *tree;
+	int array[] = {
 
-	/* Insert some nodes into the AVL tree */
-	avl_insert(&root, 10);
-	avl_insert(&root, 5);
-	avl_insert(&root, 20);
-	avl_insert(&root, 3);
-	avl_insert(&root, 7);
-	avl_insert(&root, 15);
-	avl_insert(&root, 25);
+		79, 47, 68, 87, 84, 91, 21, 32, 34, 2,
+		20, 22, 98, 1, 62, 95
+	};
+	size_t n = sizeof(array) / sizeof(array[0]);
 
-	/* Print the AVL tree */
-	printf("Original AVL tree:\n");
-	binary_tree_print(root);
+	tree = array_to_avl(array, n);
+	if (!tree)
+		return (1);
+	binary_tree_print(tree);
 
-	/* Remove a node from the AVL tree */
-	root = avl_remove(root, 20);
-	printf("\nAVL tree after removing node with value 20:\n");
-	binary_tree_print(root);
+	tree = avl_remove(tree, 47);
+	printf("Removed 47...\n");
+	binary_tree_print(tree);
 
-	/* Clean up memory */
-	binary_tree_delete(root);
+	tree = avl_remove(tree, 79);
+	printf("Removed 79...\n");
+	binary_tree_print(tree);
 
+	tree = avl_remove(tree, 32);
+	printf("Removed 32...\n");
+	binary_tree_print(tree);
+
+	tree = avl_remove(tree, 34);
+	printf("Removed 34...\n");
+	binary_tree_print(tree);
+
+	tree = avl_remove(tree, 22);
+	printf("Removed 22...\n");
+	binary_tree_print(tree);
+	binary_tree_delete(tree);
 	return (0);
 }
